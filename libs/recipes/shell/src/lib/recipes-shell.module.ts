@@ -5,13 +5,15 @@ import { recipesShellRoutes } from './lib.routes';
 import { RecipesComponent } from './containers/recipes.component';
 import { SharedUiNavbarModule } from "@go-cook/shared/ui-navbar";
 import { MatDialogModule } from "@angular/material/dialog";
+import { RecipesRecipesListFeatureModule } from "@go-cook/recipes/recipes-list/feature";
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(recipesShellRoutes),
     SharedUiNavbarModule,
-    MatDialogModule
+    MatDialogModule,
+    RecipesRecipesListFeatureModule
   ],
   declarations: [RecipesComponent],
 })
