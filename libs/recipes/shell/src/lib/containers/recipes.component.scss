@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
 
-  &--text {
+  &__text {
     text-align: center;
   }
 }
@@ -15,7 +15,7 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
 
-  &--recipes-list {
+  &__recipes-list {
     border-right: 1px solid black;
   }
 }

@@ -11,7 +11,7 @@
   padding-top: 10px;
   margin: auto;
 
-  &--search {
+  &__search {
     width: 83%;
   }
 }
@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: space-between;
 
-  &--btn {
+  &__btn {
     color: gray;
 
     &:hover {

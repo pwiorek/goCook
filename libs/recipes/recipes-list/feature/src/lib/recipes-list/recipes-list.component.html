@@ -1,12 +1,12 @@
 <section class="recipes-list">
     <div class="toolbar">
-            <mat-form-field appearance="outline" class="toolbar--search" >
+            <mat-form-field appearance="outline" class="toolbar__search" >
                 <mat-label>Search recipe</mat-label>
                 <input #searched matInput>
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
 
-        <button mat-fab type="button" class="toolbar--add-recipe" color="accent">
+        <button mat-fab type="button" class="toolbar__add-recipe" color="accent">
             <mat-icon>add</mat-icon>
         </button>
     </div>
@@ -19,14 +19,14 @@
                         <button mat-icon-button
                                 type="button"
                                 aria-label="Button that edits specific recipe"
-                                class="recipe--btn"
+                                class="recipe__btn"
                                 (click)="editRecipe(recipe._id)">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button
                                 type="button"
                                 aria-label="Button that deletes specific recipe"
-                                class="recipe--btn"
+                                class="recipe__btn"
                                 (click)="removeRecipe(recipe)">
                             <mat-icon>delete</mat-icon>
                         </button>
