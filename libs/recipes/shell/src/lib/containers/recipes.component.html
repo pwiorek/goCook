@@ -1,2 +1,7 @@
-<p>recipes works!</p>
-<go-cook-navbar></go-cook-navbar>
+<go-cook-navbar (accountIconClicked)="openDialog(credentials)"></go-cook-navbar>
+
+<ng-template #credentials>
+    <section class="credentials">
+        <span class="credentials--text">created by:<br><b>Piotr Wiórek</b></span>
+    </section>
+</ng-template>

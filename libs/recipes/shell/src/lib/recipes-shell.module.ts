@@ -4,12 +4,14 @@ import { RouterModule } from '@angular/router';
 import { recipesShellRoutes } from './lib.routes';
 import { RecipesComponent } from './containers/recipes.component';
 import { SharedUiNavbarModule } from "@go-cook/shared/ui-navbar";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(recipesShellRoutes),
-    SharedUiNavbarModule
+    SharedUiNavbarModule,
+    MatDialogModule
   ],
   declarations: [RecipesComponent],
 })
