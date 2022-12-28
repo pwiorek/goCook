@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, TemplateRef } from '@angular/core';
-import { MatDialog } from "@angular/material/dialog";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'go-cook-recipes',
@@ -7,16 +6,4 @@ import { MatDialog } from "@angular/material/dialog";
   styleUrls: ['./recipes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecipesComponent {
-
-  constructor(
-      private dialog: MatDialog
-  ) { }
-
-  public openDialog(templateRef: TemplateRef<any>): void {
-    this.dialog.open(templateRef,  {
-      width: '300px',
-      height: '150px'
-    })
-  }
-}
+export class RecipesComponent { }

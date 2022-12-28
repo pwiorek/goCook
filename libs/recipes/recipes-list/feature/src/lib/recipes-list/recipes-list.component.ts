@@ -7,10 +7,10 @@ import {
   OnDestroy,
   ViewChild
 } from '@angular/core';
-import { Recipe } from "../../../../../domain/src/lib/interfaces/recipe.model";
 import { debounceTime, distinctUntilChanged, filter, fromEvent, map, Subject, takeUntil } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
-import { RemoveRecipeDialogComponent } from "../../../../ui/src/lib/remove-recipe-dialog/remove-recipe-dialog.component";
+import { Recipe } from "@go-cook/recipes/domain";
+import { RemoveRecipeDialogComponent } from "@go-cook/recipes/recipes-list/ui";
 
 const mockRecipes: Recipe[] = [
   {
