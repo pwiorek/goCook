@@ -1,0 +1,9 @@
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  &__recipes-list {
+    border-right: 1px solid black;
+  }
+}

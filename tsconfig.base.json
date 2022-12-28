@@ -15,6 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@go-cook/recipes/domain": ["libs/recipes/domain/src/index.ts"],
+      "@go-cook/recipes/recipes-list/feature": [
+        "libs/recipes/recipes-list/feature/src/index.ts"
+      ],
+      "@go-cook/recipes/recipes-list/ui": [
+        "libs/recipes/recipes-list/ui/src/index.ts"
+      ],
       "@go-cook/recipes/shell": ["libs/recipes/shell/src/index.ts"],
       "@go-cook/shared/ui-navbar": ["libs/shared/ui-navbar/src/index.ts"]
     }

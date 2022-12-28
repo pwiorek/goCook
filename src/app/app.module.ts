@@ -6,6 +6,7 @@ import { RouterOutlet } from "@angular/router";
 import { AppRoutingModule } from "./app-routing.module";
 
 import { RecipesShellModule } from "@go-cook/recipes/shell";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,7 +14,8 @@ import { RecipesShellModule } from "@go-cook/recipes/shell";
     AppRoutingModule,
     BrowserModule,
     RouterOutlet,
-    RecipesShellModule
+    RecipesShellModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,37 @@
+<section class="recipes-list">
+    <div class="toolbar">
+            <mat-form-field appearance="outline" class="toolbar__search" >
+                <mat-label>Search recipe</mat-label>
+                <input #searched matInput>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+
+        <button mat-fab type="button" class="toolbar__add-recipe" color="accent">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+    <mat-selection-list #recipesList [multiple]="false">
+            <mat-list-option *ngFor="let recipe of recipes; trackBy: identifyByRecipeId" [value]="recipe">
+                <div class="recipe">
+                    {{recipe.name}}
+                    <div *ngIf="recipesList.selectedOptions.hasValue() && recipesList.selectedOptions.selected[0].value === recipe">
+                        <button mat-icon-button
+                                type="button"
+                                aria-label="Button that edits specific recipe"
+                                class="recipe__btn"
+                                (click)="editRecipe(recipe._id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button
+                                type="button"
+                                aria-label="Button that deletes specific recipe"
+                                class="recipe__btn"
+                                (click)="removeRecipe(recipe)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </mat-list-option>
+    </mat-selection-list>
+</section>
