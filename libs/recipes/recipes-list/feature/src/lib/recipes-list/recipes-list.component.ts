@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { combineLatest, debounceTime, distinctUntilChanged, filter, fromEvent, map, Observable, Subject, takeUntil } from "rxjs";
-import { addRecipe, loadRecipes, selectAllRecipes } from "@go-cook/recipes/data-access";
+import { addRecipe, RecipesFacade } from "@go-cook/recipes/data-access";
 import { RemoveRecipeDialogComponent } from "@go-cook/recipes/recipes-list/ui";
 import { Recipe } from "@go-cook/recipes/domain";
 import { MatDialog } from "@angular/material/dialog";
@@ -21,7 +21,8 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
   constructor(
       private cd: ChangeDetectorRef,
       private dialog: MatDialog,
-      private store: Store
+      private store: Store,
+      private recipeFacade: RecipesFacade
   ) {  }
 
   ngAfterViewInit(): void {
@@ -59,26 +60,23 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
   }
 
   private getRecipes(): void {
-    this.getRecipesFromStore();
-    this.store.dispatch(loadRecipes());
+    combineLatest(this.recipeFacade.allRecipes$, this.getSearchedRecipeName$()).pipe(
+        takeUntil(this.unsub$),
+        map(([recipes, searched]) => recipes.filter(recipe => recipe.name.toLowerCase().includes(searched.toLowerCase())))
+    ).subscribe(recipes => {
+      this.recipes = recipes;
+      this.cd.detectChanges();
+    });
+
+    this.recipeFacade.init();
     this.searchedRecipeInput.nativeElement.dispatchEvent(new Event('input'));
   }
 
   private getSearchedRecipeName$(): Observable<string> {
     return fromEvent(this.searchedRecipeInput.nativeElement, 'input').pipe(
-        takeUntil(this.unsub$),
         map(() => this.searchedRecipeInput.nativeElement.value),
         debounceTime(500),
         distinctUntilChanged(),
-    )
-  }
-
-  private getRecipesFromStore(): void {
-    combineLatest(this.store.select(selectAllRecipes), this.getSearchedRecipeName$()).subscribe(
-        ([recipes, searched]) => {
-          this.recipes = recipes.filter(recipe => recipe.name.toLowerCase().includes(searched.toLowerCase()));
-          this.cd.detectChanges();
-        }
     )
   }
 
