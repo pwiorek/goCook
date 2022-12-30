@@ -17,6 +17,9 @@
     "paths": {
       "@go-cook/recipes/data-access": ["libs/recipes/data-access/src/index.ts"],
       "@go-cook/recipes/domain": ["libs/recipes/domain/src/index.ts"],
+      "@go-cook/recipes/recipes-details/feature": [
+        "libs/recipes/recipes-details/feature/src/index.ts"
+      ],
       "@go-cook/recipes/recipes-list/feature": [
         "libs/recipes/recipes-list/feature/src/index.ts"
       ],
@@ -24,6 +27,7 @@
         "libs/recipes/recipes-list/ui/src/index.ts"
       ],
       "@go-cook/recipes/shell": ["libs/recipes/shell/src/index.ts"],
+      "@go-cook/shared/pipes": ["libs/shared/pipes/src/index.ts"],
       "@go-cook/shared/ui-navbar": ["libs/shared/ui-navbar/src/index.ts"]
     }
   },

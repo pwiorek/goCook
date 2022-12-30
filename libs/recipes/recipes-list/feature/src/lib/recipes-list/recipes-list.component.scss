@@ -1,4 +1,4 @@
-.recipes-list {
+.recipes-container {
   width: 100%;
   height: 100%;
 }
@@ -14,6 +14,10 @@
   &__search {
     width: 83%;
   }
+}
+
+.recipes-list {
+  overflow: scroll;
 }
 
 .recipe {

@@ -15,7 +15,7 @@ export class RecipesFacade {
    */
   loaded$ = this.store.pipe(select(RecipesSelectors.selectRecipesLoaded));
   allRecipes$ = this.store.pipe(select(RecipesSelectors.selectAllRecipes));
-  selectedRecipes$ = this.store.pipe(select(RecipesSelectors.selectEntity));
+  selectedRecipe$ = this.store.pipe(select(RecipesSelectors.selectEntity));
 
   /**
    * Use the initialization action to perform one

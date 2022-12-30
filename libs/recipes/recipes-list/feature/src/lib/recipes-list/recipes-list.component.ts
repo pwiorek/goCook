@@ -1,10 +1,11 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { combineLatest, debounceTime, distinctUntilChanged, filter, fromEvent, map, Observable, Subject, takeUntil } from "rxjs";
-import { addRecipe, RecipesFacade } from "@go-cook/recipes/data-access";
+import { addRecipe, RecipesFacade, selectRecipe } from "@go-cook/recipes/data-access";
 import { RemoveRecipeDialogComponent } from "@go-cook/recipes/recipes-list/ui";
 import { Recipe } from "@go-cook/recipes/domain";
 import { MatDialog } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'go-cook-recipes-list',
@@ -15,6 +16,7 @@ import { Store } from "@ngrx/store";
 export class RecipesListComponent implements AfterViewInit, OnDestroy {
   private unsub$: Subject<void> = new Subject();
   public recipes: Recipe[] = [];
+  public currentRecipeId = this.route.snapshot.paramMap.get('recipeId');
 
   @ViewChild('searched') searchedRecipeInput!: ElementRef<HTMLInputElement>;
 
@@ -22,11 +24,22 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
       private cd: ChangeDetectorRef,
       private dialog: MatDialog,
       private store: Store,
+      private router: Router,
+      private route: ActivatedRoute,
       private recipeFacade: RecipesFacade
-  ) {  }
+  ) {
+    if (this.currentRecipeId) this.store.dispatch(selectRecipe({recipeId: this.currentRecipeId}));
+  }
 
   ngAfterViewInit(): void {
     this.getRecipes();
+  }
+
+  public goToDetails(recipeId: string): void {
+    const currentId = this.route.snapshot.paramMap.get('recipeId');
+    this.store.dispatch(selectRecipe({recipeId}));
+
+    this.router.navigate([currentId ? `../${recipeId}` : recipeId], {relativeTo: this.route})
   }
 
   public identifyByRecipeId(index: number, item: Recipe): string {
@@ -54,7 +67,7 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
 
   public addRecipe(): void {
     // TODO: Add form with new recipes
-    const recipe: Recipe = { _id: Date.now().toString(), name: Date.now().toString(), description: 'abc', preparationTimeInMinutes: 5, ingredients: [] };
+    const recipe: Recipe = { _id: Date.now().toString(), name: Date.now().toString(), description: 'abc', preparationTimeInMinutes: 125, ingredients: [] };
 
     this.store.dispatch(addRecipe({recipe}));
   }
@@ -74,6 +87,7 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
 
   private getSearchedRecipeName$(): Observable<string> {
     return fromEvent(this.searchedRecipeInput.nativeElement, 'input').pipe(
+        takeUntil(this.unsub$),
         map(() => this.searchedRecipeInput.nativeElement.value),
         debounceTime(500),
         distinctUntilChanged(),

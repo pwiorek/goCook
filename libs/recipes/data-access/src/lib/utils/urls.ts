@@ -1,2 +1,2 @@
-const endpointKey = 'f326da4874c44444b442c891a902d65a';
+const endpointKey = 'de51f56043af42389230feeaf476ef06';
 export const apiUrl = `https://crudcrud.com/api/${endpointKey}`;

@@ -1,0 +1,22 @@
+<section class="details" *ngIf="recipe | async; else loading">
+    <h2 class="details__title">{{ (recipe | async)?.name }}</h2>
+    <span class="details__caption">Preparation time: {{ (recipe | async)?.preparationTimeInMinutes | time }}</span>
+
+    <ng-container *ngIf="(recipe | async)?.ingredients?.length">
+        <h3 class="details__caption">Ingredients</h3>
+        <ol class="details__list">
+            <li *ngFor="let ingredient of (recipe | async)?.ingredients">
+                {{ ingredient.name }} - {{ ingredient.quantity }}
+            </li>
+        </ol>
+    </ng-container>
+
+    <h3 class="details__caption">Description</h3>
+    <p class="details__description">{{ (recipe | async)?.description }}</p>
+</section>
+
+<ng-template #loading>
+    <div class="spinner-container">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>

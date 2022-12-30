@@ -1,4 +1,4 @@
-<section class="recipes-list">
+<section class="recipes-container">
     <div class="toolbar">
             <mat-form-field appearance="outline" class="toolbar__search" >
                 <mat-label>Search recipe</mat-label>
@@ -11,8 +11,11 @@
         </button>
     </div>
 
-    <mat-selection-list #recipesList [multiple]="false">
-            <mat-list-option *ngFor="let recipe of recipes; trackBy: identifyByRecipeId" [value]="recipe">
+    <mat-selection-list #recipesList [multiple]="false" class="recipes-list">
+            <mat-list-option *ngFor="let recipe of recipes; trackBy: identifyByRecipeId"
+                             [value]="recipe"
+                             [selected]="recipe._id === currentRecipeId"
+                             (click)="goToDetails(recipe._id)">
                 <div class="recipe">
                     {{recipe.name}}
                     <div *ngIf="recipesList.selectedOptions.hasValue() && recipesList.selectedOptions.selected[0].value === recipe">

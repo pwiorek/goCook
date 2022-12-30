@@ -4,6 +4,7 @@ import { Recipe } from "@go-cook/recipes/domain";
 export const loadRecipes = createAction('[Recipes] Fetch Recipes');
 export const addRecipe = createAction('[Recipes] Add Recipe', props<{recipe: Recipe}>());
 export const removeRecipe = createAction('[Recipes] Remove Recipe', props<{recipeId: string}>());
+export const selectRecipe = createAction('[Recipes] Select Recipe', props<{recipeId: string}>());
 
 export const loadRecipesSuccess = createAction(
   '[Recipes/API] Load Recipes Success',

@@ -1,4 +1,7 @@
-<go-cook-navbar></go-cook-navbar>
 <div class="container">
-    <go-cook-recipes-list class="container__recipes-list"></go-cook-recipes-list>
+    <go-cook-navbar></go-cook-navbar>
+    <main class="container__content">
+        <go-cook-recipes-list class="container__recipes-list"></go-cook-recipes-list>
+        <div><router-outlet></router-outlet></div>
+    </main>
 </div>

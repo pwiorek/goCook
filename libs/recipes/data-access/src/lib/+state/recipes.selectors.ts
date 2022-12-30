@@ -37,7 +37,7 @@ export const selectSelectedId = createSelector(
 );
 
 export const selectEntity = createSelector(
-  selectRecipesEntities,
+  selectAllRecipes,
   selectSelectedId,
-  (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
+  (entities, selectedId) => (selectedId ? entities.find(recipe => recipe._id === selectedId) : undefined)
 );

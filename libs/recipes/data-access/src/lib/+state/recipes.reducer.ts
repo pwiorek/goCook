@@ -4,13 +4,20 @@ import { createReducer, on, Action } from '@ngrx/store';
 import * as RecipesActions from './recipes.actions';
 import { Recipe } from "@go-cook/recipes/domain";
 import { state } from "@angular/animations";
-import { addRecipe, loadRecipes, loadRecipesFailure, loadRecipesSuccess, removeRecipe } from "./recipes.actions";
+import {
+    addRecipe,
+    loadRecipes,
+    loadRecipesFailure,
+    loadRecipesSuccess,
+    removeRecipe,
+    selectRecipe
+} from "./recipes.actions";
 
 export const RECIPES_FEATURE_KEY = 'recipes';
 
 export interface RecipesState extends EntityState<Recipe> {
   recipes: Recipe[];
-  selectedId?: string | number; // which Recipes record has been selected
+  selectedId?: string; // which Recipes record has been selected
   loaded: boolean; // has the Recipes list been loaded
   error?: string | null; // last known error (if any)
 }
@@ -45,6 +52,11 @@ const reducer = createReducer(
   on(removeRecipe, (state, { recipeId }) => ({
       ...state,
       recipes: state.recipes.filter(recipe => recipe._id !== recipeId)
+  })),
+
+  on(selectRecipe, (state, { recipeId }) => ({
+      ...state,
+      selectedId: recipeId
   })),
 
   on(loadRecipesSuccess, (state, { recipes }) => ({
