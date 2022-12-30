@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@go-cook/recipes/data-access": ["libs/recipes/data-access/src/index.ts"],
       "@go-cook/recipes/domain": ["libs/recipes/domain/src/index.ts"],
       "@go-cook/recipes/recipes-list/feature": [
         "libs/recipes/recipes-list/feature/src/index.ts"

@@ -6,6 +6,7 @@ import { RecipesComponent } from './containers/recipes.component';
 import { SharedUiNavbarModule } from "@go-cook/shared/ui-navbar";
 import { MatDialogModule } from "@angular/material/dialog";
 import { RecipesRecipesListFeatureModule } from "@go-cook/recipes/recipes-list/feature";
+import { RecipesDataAccessModule } from "@go-cook/recipes/data-access";
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { RecipesRecipesListFeatureModule } from "@go-cook/recipes/recipes-list/f
     RouterModule.forChild(recipesShellRoutes),
     SharedUiNavbarModule,
     MatDialogModule,
-    RecipesRecipesListFeatureModule
+    RecipesRecipesListFeatureModule,
+    RecipesDataAccessModule
   ],
   declarations: [RecipesComponent],
 })
