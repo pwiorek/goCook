@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from "@angular/material/dialog";
 import { RecipesRecipesListUiModule } from "@go-cook/recipes/recipes-list/ui";
+import { RouterLink } from "@angular/router";
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { RecipesRecipesListUiModule } from "@go-cook/recipes/recipes-list/ui";
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    RecipesRecipesListUiModule
+    RecipesRecipesListUiModule,
+    RouterLink
   ],
   declarations: [RecipesListComponent],
   exports: [RecipesListComponent],

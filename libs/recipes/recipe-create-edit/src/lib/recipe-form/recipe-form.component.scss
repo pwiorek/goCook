@@ -1,0 +1,15 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredient {
+  &__name {
+    width: 50%;
+    margin-right: 10px;
+  }
+
+  &__quantity {
+    width: 140px;
+  }
+}

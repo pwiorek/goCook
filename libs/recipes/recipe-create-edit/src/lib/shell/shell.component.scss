@@ -1,0 +1,13 @@
+.container {
+  margin: auto 20px;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  &__submit {
+    margin-left: 10px;
+  }
+}

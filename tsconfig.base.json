@@ -17,6 +17,9 @@
     "paths": {
       "@go-cook/recipes/data-access": ["libs/recipes/data-access/src/index.ts"],
       "@go-cook/recipes/domain": ["libs/recipes/domain/src/index.ts"],
+      "@go-cook/recipes/recipe-create-edit": [
+        "libs/recipes/recipe-create-edit/src/index.ts"
+      ],
       "@go-cook/recipes/recipes-details/feature": [
         "libs/recipes/recipes-details/feature/src/index.ts"
       ],

@@ -6,15 +6,15 @@
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
 
-        <button mat-fab type="button" class="toolbar__add-recipe" color="accent" (click)="addRecipe()">
+        <a mat-fab class="toolbar__add-recipe" color="accent" [routerLink]="'./create'" (click)="recipesList.deselectAll()">
             <mat-icon>add</mat-icon>
-        </button>
+        </a>
     </div>
 
     <mat-selection-list #recipesList [multiple]="false" class="recipes-list">
             <mat-list-option *ngFor="let recipe of recipes; trackBy: identifyByRecipeId"
                              [value]="recipe"
-                             [selected]="recipe._id === currentRecipeId"
+                             [selected]="recipe._id === (selectedRecipe$ | async)?._id"
                              (click)="goToDetails(recipe._id)">
                 <div class="recipe">
                     {{recipe.name}}
@@ -23,14 +23,14 @@
                                 type="button"
                                 aria-label="Button that edits specific recipe"
                                 class="recipe__btn"
-                                (click)="editRecipe(recipe._id)">
+                                (click)="editRecipe($event, recipe._id)">
                             <mat-icon>edit</mat-icon>
                         </button>
                         <button mat-icon-button
                                 type="button"
                                 aria-label="Button that deletes specific recipe"
                                 class="recipe__btn"
-                                (click)="removeRecipe(recipe)">
+                                (click)="removeRecipe($event, recipe)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>

@@ -14,4 +14,12 @@ export class RecipeDataService {
     public fetchRecipes(): Observable<Recipe[]> {
         return this.http.get<Recipe[]>(`${apiUrl}/recipes`);
     }
+
+    public createRecipe(recipe: Recipe): Observable<Recipe> {
+        return this.http.post<Recipe>(`${apiUrl}/recipes`, recipe);
+    }
+
+    public updateRecipe(recipeId: string, recipe: Recipe): Observable<any> {
+        return this.http.put(`${apiUrl}/recipes/${recipeId}`, recipe);
+    }
 }

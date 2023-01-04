@@ -1,0 +1,8 @@
+<section class="container">
+    <h2>{{ isEditMode ? "Edit" : "Create" }} recipe</h2>
+    <go-cook-recipe-form #recipeForm [initialValue]="editedRecipe"></go-cook-recipe-form>
+    <div class="buttons-container">
+        <button type="button" mat-raised-button (click)="routeToMainPage()">Cancel</button>
+        <button mat-raised-button color="accent" (click)="submitForm()" class="buttons-container__submit">{{ isEditMode ? "Edit" : "Create" }} recipe</button>
+    </div>
+</section>
