@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { recipesRecipesDetailsFeatureRoutes } from './lib.routes';
 import { RecipeDetailsComponent } from './details/recipe-details.component';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { SharedPipesModule } from "@go-cook/shared/pipes";
+import { RecipesRecipesDetailsFeatureRoutingModule } from "./recipes-recipes-details-feature-routing.module";
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(recipesRecipesDetailsFeatureRoutes),
+    RecipesRecipesDetailsFeatureRoutingModule,
     MatProgressSpinnerModule,
     SharedPipesModule
   ],

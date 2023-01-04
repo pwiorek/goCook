@@ -1,3 +1,3 @@
 export * from './lib/recipes-shell.module';
 
-export * from './lib/lib.routes';
+export * from './lib/recipes-shell-routing.module';

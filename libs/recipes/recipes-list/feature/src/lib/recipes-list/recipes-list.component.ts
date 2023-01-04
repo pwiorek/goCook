@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { combineLatest, debounceTime, distinctUntilChanged, filter, fromEvent, map, Observable, Subject, takeUntil } from "rxjs";
-import { addRecipe, RecipesFacade, selectRecipe } from "@go-cook/recipes/data-access";
+import { RecipesFacade, selectRecipe } from "@go-cook/recipes/data-access";
 import { RemoveRecipeDialogComponent } from "@go-cook/recipes/recipes-list/ui";
 import { Recipe } from "@go-cook/recipes/domain";
 import { MatDialog } from "@angular/material/dialog";
@@ -15,8 +15,9 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class RecipesListComponent implements AfterViewInit, OnDestroy {
   private unsub$: Subject<void> = new Subject();
+
   public recipes: Recipe[] = [];
-  public currentRecipeId = this.route.snapshot.paramMap.get('recipeId');
+  public selectedRecipe$ = this.recipeFacade.selectedRecipe$;
 
   @ViewChild('searched') searchedRecipeInput!: ElementRef<HTMLInputElement>;
 
@@ -28,7 +29,7 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
       private route: ActivatedRoute,
       private recipeFacade: RecipesFacade
   ) {
-    if (this.currentRecipeId) this.store.dispatch(selectRecipe({recipeId: this.currentRecipeId}));
+    this.setCurrentRecipeId();
   }
 
   ngAfterViewInit(): void {
@@ -36,22 +37,22 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
   }
 
   public goToDetails(recipeId: string): void {
-    const currentId = this.route.snapshot.paramMap.get('recipeId');
     this.store.dispatch(selectRecipe({recipeId}));
-
-    this.router.navigate([currentId ? `../${recipeId}` : recipeId], {relativeTo: this.route})
+    this.router.navigate([recipeId], {relativeTo: this.route})
   }
 
   public identifyByRecipeId(index: number, item: Recipe): string {
     return item._id;
   }
 
-  public editRecipe(recipeId: string): void {
-    // TODO: Add routing to edit section
-    console.log('edit recipe', recipeId);
+  public editRecipe(event: Event, recipeId: string): void {
+    event.stopPropagation();
+    this.router.navigate([`edit`, recipeId], {relativeTo: this.route});
   }
 
-  public removeRecipe(recipe: Recipe): void {
+  public removeRecipe(event: Event, recipe: Recipe): void {
+    event.stopPropagation();
+
     const dialogRef = this.dialog.open(RemoveRecipeDialogComponent, {
       data: { recipeName: recipe.name }
     })
@@ -63,13 +64,6 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
       // TODO: Remove recipe
       console.log(`${recipe.name} has been removed`);
     });
-  }
-
-  public addRecipe(): void {
-    // TODO: Add form with new recipes
-    const recipe: Recipe = { _id: Date.now().toString(), name: Date.now().toString(), description: 'abc', preparationTimeInMinutes: 125, ingredients: [] };
-
-    this.store.dispatch(addRecipe({recipe}));
   }
 
   private getRecipes(): void {
@@ -93,6 +87,14 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
         distinctUntilChanged(),
     )
   }
+
+  private setCurrentRecipeId(): void {
+    this.route.firstChild?.params.pipe(
+        takeUntil(this.unsub$),
+        map(params => params['recipeId']),
+    ).subscribe(recipeId => this.store.dispatch(selectRecipe({recipeId})));
+  }
+
 
   ngOnDestroy(): void {
     this.unsub$.next();
