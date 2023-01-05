@@ -1,15 +1,13 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 
-import * as RecipesActions from './recipes.actions';
 import { Recipe } from "@go-cook/recipes/domain";
-import { state } from "@angular/animations";
 import {
     addRecipe,
     loadRecipes,
     loadRecipesFailure,
     loadRecipesSuccess,
-    removeRecipe,
+    removeRecipe, removeRecipeFailure, removeRecipeSuccess,
     selectRecipe
 } from "./recipes.actions";
 
@@ -54,6 +52,15 @@ const reducer = createReducer(
       recipes: state.recipes.filter(recipe => recipe._id !== recipeId)
   })),
 
+  on(removeRecipeSuccess, (state) => ({
+      ...state
+  })),
+
+  on(removeRecipeFailure, (state, { error }) => ({
+      ...state,
+      error,
+  })),
+
   on(selectRecipe, (state, { recipeId }) => ({
       ...state,
       selectedId: recipeId
@@ -63,13 +70,12 @@ const reducer = createReducer(
       ...state,
       recipes,
       loaded: true
-      })
-  ),
+  })),
 
   on(loadRecipesFailure, (state, { error }) => ({
-    ...state,
-    error,
-  }))
+      ...state,
+      error,
+  })),
 );
 
 export function recipesReducer(

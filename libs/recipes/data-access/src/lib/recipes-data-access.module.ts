@@ -7,6 +7,7 @@ import { RecipesEffects } from './+state/recipes.effects';
 import { RecipesFacade } from './+state/recipes.facade';
 import { RecipeDataService } from "./services/recipe-data.service";
 import { HttpClientModule } from "@angular/common/http";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HttpClientModule } from "@angular/common/http";
     EffectsModule.forRoot([]),
     StoreModule.forFeature(fromRecipes.RECIPES_FEATURE_KEY, fromRecipes.recipesReducer),
     EffectsModule.forFeature([RecipesEffects]),
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [RecipesFacade, RecipeDataService],
 })

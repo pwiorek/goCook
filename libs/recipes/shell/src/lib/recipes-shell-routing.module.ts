@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RecipesComponent } from "./containers/recipes.component";
+import { ChooseRecipeComponent } from "@go-cook/recipes/recipes-list/ui";
 
 const routes: Routes = [
     { path: '', redirectTo: 'recipes', pathMatch: 'full'},
     { path: 'recipes', component: RecipesComponent,
         children: [
+            { path: '', component: ChooseRecipeComponent },
             { path: 'edit/:recipeId', loadChildren: () => import('@go-cook/recipes/recipe-create-edit').then(m => m.RecipesRecipeCreateEditModule) },
             { path: 'create', loadChildren: () => import('@go-cook/recipes/recipe-create-edit').then(m => m.RecipesRecipeCreateEditModule) },
             { path: ':recipeId', loadChildren: () => import('@go-cook/recipes/recipes-details/feature').then(m => m.RecipesRecipesDetailsFeatureModule) }
