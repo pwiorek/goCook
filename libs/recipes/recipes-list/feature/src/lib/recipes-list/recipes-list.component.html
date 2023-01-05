@@ -11,7 +11,7 @@
         </a>
     </div>
 
-    <mat-selection-list #recipesList [multiple]="false" class="recipes-list">
+    <mat-selection-list #recipesList [multiple]="false">
             <mat-list-option *ngFor="let recipe of recipes; trackBy: identifyByRecipeId"
                              [value]="recipe"
                              [selected]="recipe._id === (selectedRecipe$ | async)?._id"

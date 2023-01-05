@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { RecipesRecipesListUiModule } from "@go-cook/recipes/recipes-list/ui";
 import { RouterLink } from "@angular/router";
 
@@ -17,6 +18,7 @@ import { RouterLink } from "@angular/router";
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
+    MatSnackBarModule,
     RecipesRecipesListUiModule,
     RouterLink
   ],

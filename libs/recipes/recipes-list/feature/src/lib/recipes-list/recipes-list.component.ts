@@ -1,11 +1,25 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { combineLatest, debounceTime, distinctUntilChanged, filter, fromEvent, map, Observable, Subject, takeUntil } from "rxjs";
-import { RecipesFacade, selectRecipe } from "@go-cook/recipes/data-access";
+import {
+  catchError,
+  combineLatest,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  fromEvent,
+  map,
+  Observable,
+  Subject,
+  switchMap,
+  take,
+  takeUntil
+} from "rxjs";
+import { RecipeDataService, RecipesFacade, removeRecipe, selectRecipe } from "@go-cook/recipes/data-access";
 import { RemoveRecipeDialogComponent } from "@go-cook/recipes/recipes-list/ui";
 import { Recipe } from "@go-cook/recipes/domain";
 import { MatDialog } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
 import { ActivatedRoute, Router } from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'go-cook-recipes-list',
@@ -27,9 +41,9 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
       private store: Store,
       private router: Router,
       private route: ActivatedRoute,
-      private recipeFacade: RecipesFacade
+      private recipeFacade: RecipesFacade,
   ) {
-    this.setCurrentRecipeId();
+    this.setCurrentRecipeAsSelected();
   }
 
   ngAfterViewInit(): void {
@@ -59,10 +73,10 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
 
     dialogRef.afterClosed().pipe(
         takeUntil(this.unsub$),
-        filter(result => !!result)
+        filter(result => !!result),
     ).subscribe(() => {
-      // TODO: Remove recipe
-      console.log(`${recipe.name} has been removed`);
+        this.store.dispatch(removeRecipe({recipeId: recipe._id}));
+        this.router.navigate(['/']);
     });
   }
 
@@ -73,6 +87,7 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
     ).subscribe(recipes => {
       this.recipes = recipes;
       this.cd.detectChanges();
+      this.checkIfRecipeExists(this.route.firstChild?.snapshot.params['recipeId']);
     });
 
     this.recipeFacade.init();
@@ -88,11 +103,19 @@ export class RecipesListComponent implements AfterViewInit, OnDestroy {
     )
   }
 
-  private setCurrentRecipeId(): void {
+  private setCurrentRecipeAsSelected(): void {
     this.route.firstChild?.params.pipe(
         takeUntil(this.unsub$),
         map(params => params['recipeId']),
     ).subscribe(recipeId => this.store.dispatch(selectRecipe({recipeId})));
+  }
+
+  private checkIfRecipeExists(recipeId: string): void {
+    if (!recipeId) return;
+
+    if (!this.recipes.some(recipe => recipe._id === recipeId)) {
+      this.router.navigate(['/']);
+    }
   }
 
 

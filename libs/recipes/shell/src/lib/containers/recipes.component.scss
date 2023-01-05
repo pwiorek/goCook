@@ -1,7 +1,6 @@
 .container {
-  overflow: hidden;
   height: 100%;
-  
+
   &__content {
     height: 100%;
     display: grid;
@@ -10,5 +9,6 @@
   
   &__recipes-list {
     border-right: 1px solid black;
+    overflow: auto;
   }
 }
